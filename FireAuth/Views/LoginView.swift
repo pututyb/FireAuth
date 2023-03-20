@@ -14,10 +14,11 @@ struct LoginView: View {
     @State private var successLogin = false
     
     var body: some View {
-        ZStack {
-            Color("background")
-                .ignoresSafeArea()
-            NavigationView {
+        NavigationView {
+            ZStack {
+                Color("background")
+                    .ignoresSafeArea()
+                
                 VStack(alignment: .leading) {
                     Text("Email")
                         .foregroundColor(.white)
