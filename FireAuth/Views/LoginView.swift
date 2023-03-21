@@ -12,7 +12,8 @@ struct LoginView: View {
     @EnvironmentObject private var authModel: AuthViewModel
     @State private var email = ""
     @State private var password = ""
-    @State private var successLogin = false
+    @State private var successLogin: Bool = false
+    @State private var isActive: Bool? = false
     
     var body: some View {
         NavigationView {
@@ -21,7 +22,22 @@ struct LoginView: View {
                     .ignoresSafeArea()
                 
                 VStack(alignment: .leading) {
-                    Text("Email")
+                    Spacer()
+                    Text("Moovie")
+                        .font(.system(size: 48, weight: .bold))
+                        .foregroundColor(.white)
+                        .padding(.leading)
+                        .padding(.bottom)
+                    
+                    Group {
+                        Text("Welcome Back,\nExplorer!")
+                            .font(.system(size: 28, weight: .bold))
+                            .foregroundColor(.white)
+                            .padding(.leading)
+                        Spacer()
+                    }
+                    
+                    Text("Email Address")
                         .foregroundColor(.white)
                         .padding(.leading)
                     TextField("", text: $email)
@@ -30,7 +46,7 @@ struct LoginView: View {
                         .foregroundColor(.white)
                         .overlay(
                             RoundedRectangle(cornerRadius: 8)
-                                .stroke(Color.orange, lineWidth: 2)
+                                .stroke(Color.white, lineWidth: 2)
                                 .padding(.horizontal)
                         )
                     Text("Password")
@@ -41,7 +57,7 @@ struct LoginView: View {
                         .foregroundColor(.white)
                         .overlay(
                             RoundedRectangle(cornerRadius: 8)
-                                .stroke(Color.orange, lineWidth: 2)
+                                .stroke(Color.white, lineWidth: 2)
                                 .padding(.horizontal)
                         )
                     Button(action: {
@@ -54,10 +70,15 @@ struct LoginView: View {
                     .background(.orange)
                     .cornerRadius(8)
                     .padding()
+                    
+                    NavigationLink(destination: SignUpView(), tag: true ,selection: $isActive) {
+                        Text("Don't have account! Sign Up")
+                            .frame(maxWidth: .infinity, maxHeight: 20)
+                            .foregroundColor(.white)
+                    }
+                    Spacer()
                 }
             }
-        }
-        .onAppear {
         }
     }
 }
