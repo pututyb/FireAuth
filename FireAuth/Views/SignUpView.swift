@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct SignUpView: View {
+    
+    @State private var isActive: Bool? = false
     var body: some View {
         NavigationView {
             ZStack {
@@ -16,19 +18,16 @@ struct SignUpView: View {
                 
                 VStack(alignment: .leading) {
                     HStack {
-                        Button(action: {
-                            NavigationLink("Back", destination: LoginView())
-                        },label: {
+                        NavigationLink(destination: LoginView(), tag: true ,selection: $isActive) {
                             Image(systemName: "arrow.backward")
-                                .resizable()
-                                .frame(width: 25, height: 25)
+                                .frame(maxWidth: .infinity, maxHeight: 20)
                                 .foregroundColor(.white)
-                                .padding(.leading)
-                        })
+                        }
                         Spacer()
                     }
                 }
             }
+            .navigationBarBackButtonHidden(true)
         }
         .navigationBarBackButtonHidden(true)
     }

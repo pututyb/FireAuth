@@ -14,6 +14,7 @@ struct LoginView: View {
     @State private var password = ""
     @State private var successLogin: Bool = false
     @State private var isActive: Bool? = false
+    @State private var animationSuccess: Bool = false
     
     var body: some View {
         NavigationView {
@@ -60,16 +61,18 @@ struct LoginView: View {
                                 .stroke(Color.white, lineWidth: 2)
                                 .padding(.horizontal)
                         )
-                    Button(action: {
-                        authModel.signIn(email: email, password: password)
-                    }) {
-                        Text("Sign in")
+                    
+                    Button("Sign In") {
+                        withAnimation(.easeInOut) {
+                            authModel.signIn(email: email, password: password)
+                        }
                     }
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity, maxHeight: 50)
                     .background(.orange)
                     .cornerRadius(8)
                     .padding()
+                    
                     
                     NavigationLink(destination: SignUpView(), tag: true ,selection: $isActive) {
                         Text("Don't have account! Sign Up")
@@ -79,7 +82,7 @@ struct LoginView: View {
                     Spacer()
                 }
             }
-        }
+        }.navigationBarBackButtonHidden(true)
     }
 }
 
