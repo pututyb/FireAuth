@@ -9,6 +9,7 @@ import SwiftUI
 import Firebase
 
 struct LoginView: View {
+    @EnvironmentObject private var authModel: AuthViewModel
     @State private var email = ""
     @State private var password = ""
     @State private var successLogin = false
@@ -43,7 +44,9 @@ struct LoginView: View {
                                 .stroke(Color.orange, lineWidth: 2)
                                 .padding(.horizontal)
                         )
-                    Button(action: {login() }) {
+                    Button(action: {
+                        authModel.signIn(email: email, password: password)
+                    }) {
                         Text("Sign in")
                     }
                     .foregroundColor(.white)
@@ -54,16 +57,7 @@ struct LoginView: View {
                 }
             }
         }
-    }
-    
-    func login() {
-        Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
-            if error != nil {
-                print(error?.localizedDescription ?? "")
-            } else {
-                successLogin = true
-                print("success")
-            }
+        .onAppear {
         }
     }
 }

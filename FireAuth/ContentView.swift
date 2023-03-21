@@ -8,9 +8,16 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject private var authModel: AuthViewModel
     var body: some View {
-        VStack {
-            Text("Hello World!")
+        Group {
+            if authModel.user != nil {
+                DashboardView()
+            } else {
+                LoginView()
+            }
+        }.onAppear {
+            authModel.listenToAuthState()
         }
     }
 }
