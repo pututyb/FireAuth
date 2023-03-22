@@ -13,11 +13,11 @@ struct LoginView: View {
     @State private var email = ""
     @State private var password = ""
     @State private var successLogin: Bool = false
-    @State private var isActive: Bool? = false
+    @State private var isActive: Bool = false
     @State private var animationSuccess: Bool = false
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ZStack {
                 Color("background")
                     .ignoresSafeArea()
@@ -74,11 +74,15 @@ struct LoginView: View {
                     .padding()
                     
                     
-                    NavigationLink(destination: SignUpView(), tag: true ,selection: $isActive) {
+                    Button(action: {
+                        self.isActive = true
+                    }) {
                         Text("Don't have account! Sign Up")
                             .frame(maxWidth: .infinity, maxHeight: 20)
                             .foregroundColor(.white)
-                    }
+                    }.navigationDestination(isPresented: $isActive, destination: {SignUpView() })
+                    
+                    
                     Spacer()
                 }
             }
