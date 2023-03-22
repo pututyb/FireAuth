@@ -25,7 +25,7 @@ struct SignUpView: View {
                 VStack(alignment: .leading) {
                     HStack {
                         Button(action: {
-                            self.loginView = false
+                            self.loginView = true
                         }) {
                             Image(systemName: "arrow.backward")
                                 .resizable()

@@ -10,6 +10,7 @@ import SwiftUI
 struct DashboardView: View {
     @EnvironmentObject private var authModel: AuthViewModel
     
+    
     var body: some View {
         VStack {
             Text("\(authModel.user?.email ?? "")")
@@ -18,6 +19,14 @@ struct DashboardView: View {
                 authModel.signOut()
             }, label: {
                 Text("Sign Out")
+            })
+            
+            Button(action: {
+                if let user = authModel.user {
+                    authModel.delete(user: user)
+                }
+            },label: {
+                Text("Delete Account")
             })
         }
     }

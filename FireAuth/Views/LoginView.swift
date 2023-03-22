@@ -14,7 +14,7 @@ struct LoginView: View {
     @State private var password = ""
     @State private var successLogin: Bool = false
     @State private var isActive: Bool = false
-    @State private var animationSuccess: Bool = false
+    @State private var showError = false
     
     var body: some View {
         NavigationStack {
@@ -23,6 +23,16 @@ struct LoginView: View {
                     .ignoresSafeArea()
                 
                 VStack(alignment: .leading) {
+                    if authModel.showError {
+                        RoundedRectangle(cornerRadius: 2)
+                            .fill(Color.red)
+                            .frame(maxWidth: .infinity, maxHeight: 40)
+                            .overlay(
+                                Text("Invalid email or password")
+                                    .foregroundColor(.white)
+                            )
+                            .padding()
+                    }
                     Spacer()
                     Text("Moovie")
                         .font(.system(size: 48, weight: .bold))
@@ -64,7 +74,14 @@ struct LoginView: View {
                     
                     Button("Sign In") {
                         withAnimation(.easeInOut) {
-                            authModel.signIn(email: email, password: password)
+                            authModel.signIn(email: email, password: password) { success in 
+                                if success {
+                                    self.successLogin = true
+                                    self.showError = false
+                                } else {
+                                    self.showError = true
+                                }
+                            }
                         }
                     }
                     .foregroundColor(.white)
@@ -73,17 +90,17 @@ struct LoginView: View {
                     .cornerRadius(8)
                     .padding()
                     
-                    
-                    Button(action: {
-                        self.isActive = true
-                    }) {
-                        Text("Don't have account! Sign Up")
-                            .frame(maxWidth: .infinity, maxHeight: 20)
-                            .foregroundColor(.white)
-                    }.navigationDestination(isPresented: $isActive, destination: {SignUpView() })
-                    
-                    
-                    Spacer()
+                    Group {
+                        Button(action: {
+                            self.isActive = true
+                        }) {
+                            Text("Don't have account! Sign Up")
+                                .frame(maxWidth: .infinity, maxHeight: 20)
+                                .foregroundColor(.white)
+                        }.navigationDestination(isPresented: $isActive, destination: {SignUpView() })
+                        
+                        Spacer()
+                    }
                 }
             }
         }.navigationBarBackButtonHidden(true)
