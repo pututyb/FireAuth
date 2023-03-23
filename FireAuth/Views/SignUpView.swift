@@ -23,19 +23,7 @@ struct SignUpView: View {
                     .ignoresSafeArea()
                 
                 VStack(alignment: .leading) {
-                    HStack {
-                        Button(action: {
-                            self.loginView = true
-                        }) {
-                            Image(systemName: "arrow.backward")
-                                .resizable()
-                                .frame(maxWidth: 25, maxHeight: 25)
-                                .foregroundColor(.white)
-                                .padding(.all)
-                        }
-                        .navigationDestination(isPresented: $loginView, destination: {LoginView() })
-                        Spacer()
-                    }
+                    Spacer()
                     
                     Group {
                         Text("CREATE\nACCOUNT")
@@ -107,9 +95,7 @@ struct SignUpView: View {
                     Spacer()
                 }
             }
-            .navigationBarBackButtonHidden(true)
         }
-        .navigationBarBackButtonHidden(true)
     }
 }
 

@@ -10,7 +10,7 @@ import FirebaseAuth
 
 class AuthViewModel: ObservableObject {
     @Published var showError = false
-    var user: User? {
+    var user: FirebaseAuth.User? {
         didSet {
             objectWillChange.send()
         }
