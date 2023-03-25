@@ -28,6 +28,8 @@ class MovieListViewModel: ObservableObject {
             self.movie = documents.compactMap { queryDocumentSnapshot -> Movie? in
                 return try? queryDocumentSnapshot.data(as: Movie.self)
             }
+            
+            self.fetchTheatersData()
         }
     }
 }

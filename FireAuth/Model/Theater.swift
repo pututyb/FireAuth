@@ -6,11 +6,13 @@
 //
 
 import Foundation
+import FirebaseFirestoreSwift
+import FirebaseFirestore
 
-struct Theater: Identifiable {
-    let id: String
-    let name: String
-    let address: String
-    let capacity: Int
-    let movies: [String]
+struct Theater: Identifiable, Codable {
+    var id: String
+    var name: String
+    var address: String
+    var capacity: Int
+    var movies: [String]
 }

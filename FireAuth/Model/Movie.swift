@@ -7,8 +7,13 @@
 
 import Foundation
 import FirebaseFirestoreSwift
+import FirebaseFirestore
 
 struct Movie: Identifiable, Codable {
     @DocumentID var id: String?
     var title: String?
+    var description: String?
+    var poster_url: String?
+    var release_date: Date
+    var theaters: [Theater]
 }
