@@ -6,12 +6,9 @@
 //
 
 import Foundation
+import FirebaseFirestoreSwift
 
-struct Mvie: Identifiable {
-    let id: String
-    let title: String
-    let description: String
-    let posterURL: String
-    let releaseDate: Date
-    let theaters: [String]
+struct Movie: Identifiable, Codable {
+    @DocumentID var id: String?
+    var title: String?
 }
