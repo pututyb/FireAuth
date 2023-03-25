@@ -9,26 +9,39 @@ import SwiftUI
 
 struct DashboardView: View {
     @EnvironmentObject private var authModel: AuthViewModel
+    @ObservedObject private var viewModel = MovieListViewModel()
     
     
     var body: some View {
-        VStack {
-            Text("\(authModel.user?.email ?? "")")
-            
-            Button(action: {
-                authModel.signOut()
-            }, label: {
-                Text("Sign Out")
-            })
-            
-            Button(action: {
-                if let user = authModel.user {
-                    authModel.delete(user: user)
+        NavigationStack {
+            List {
+                ForEach(viewModel.movie, id: \.id) { Movie in
+                    VStack(alignment: .leading) {
+                        Text(Movie.title ?? "")
+                            .font(.system(size: 20, weight: .regular))
+                    }.frame(maxHeight: 200)
                 }
-            },label: {
-                Text("Delete Account")
-            })
+            }
+            .onAppear(perform: self.viewModel.fetchData)
         }
+        
+//        VStack {
+//            Text("\(authModel.user?.email ?? "")")
+//
+//            Button(action: {
+//                authModel.signOut()
+//            }, label: {
+//                Text("Sign Out")
+//            })
+//
+//            Button(action: {
+//                if let user = authModel.user {
+//                    authModel.delete(user: user)
+//                }
+//            },label: {
+//                Text("Delete Account")
+//            })
+//        }
     }
 }
 
